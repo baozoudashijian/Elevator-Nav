@@ -73,8 +73,25 @@ ElevatorNav.prototype = {
       $(me.config.scrollContent || 'html, body').animate({scrollTop: 0}, me.config.speed)
     })
   },
+  // 滑倒一定位置出现导航栏
   ShowNav() {
-
+    var me = this;
+    var f1Top = me.config.floor[0];
+    if (me.config.autoHidden == true) {
+      if ($(window).scrollTop() >= f1Top) {
+        me.NavDiv.show()
+      } else {
+        me.NavDiv.hide()
+      }
+      // 监听
+      $(window).scroll(function() {
+        if ($(window).scrollTop() >= f1Top) {
+          me.NavDiv.show()
+        } else {
+          me.NavDiv.hide()
+        }
+      })
+    }
   },
   DivFun() {
 
