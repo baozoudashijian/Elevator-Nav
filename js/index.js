@@ -9,13 +9,13 @@ function ElevatorNav(config) {
     activeClass: 'active',
     toTopClass: null,
     speed: 500,
-    scrollContent: null,
+    scrollContent: null, // 滚动相对的盒子, window or diy
     isRemoveAnimation: false,
-    offset: 0,
+    offset: 0, // 设置滑动判断nav active偏移量
     isAdapt: false,
-    autoHidden: false,
-    floor: [],
-    DiyFun: null
+    autoHidden: false, // 是否自动隐藏导航
+    floor: [], // 保存每个楼层高度的属性
+    DiyFun: null // 自定义方法
   }, config)
   this.scrollContent = me.config.scrollContent ? $('.' + me.config.scrollContent) : null
   me.init()
@@ -35,6 +35,7 @@ ElevatorNav.prototype = {
     $(me.scrollContent || window).scroll(function () {
       me.statusChange()
     })
+    me.Jump(me.config.NavClass, me.config.activeClass, me.config.speed);
     me.BackToTop()
     me.ShowNav()
     me.DivFun()
@@ -46,6 +47,34 @@ ElevatorNav.prototype = {
     for (let i = 0; i < me.config.floorClass.length; i++) {
       me.config.floor[i] = $('.' + me.config.floorClass[i]).offset().top
     }
+  },
+  // 点击跳转相应楼层
+  Jump(NavClass, activeClass, speed) {
+    var me = this
+    $('.' + NavClass).click(function () {
+      if ($(this).hasClass(me.config.toTopClass)) {
+        return
+      }
+      if (me.config.isRemoveAnimation) {
+        // 在动画运动过程中， 不希望active特殊类名满世界跑
+        $(window).off('scroll', me.statusChange())
+        //因为你解绑了检测事件，当前这个LI具备特殊类名还要再书写一次
+        $(this).addClass(activeClass).siblings().removeClass(activeClass)
+      }
+
+      // 跳转相应楼层
+      var i = $(this).index()
+      for (let j = 0; j < me.config.floorClass.length; j++) {
+        if (i == j) {
+          $(me.scrollContent || 'html,body').stop().animate({scrollTop: me.config.floor[j] - me.config.offset}, speed, function () {
+            $(me.scrollContent || window).scroll(function () {
+              me.statusChange();
+            });
+            me.ShowNav();
+          })
+        }
+      }
+    })
   },
   // 左侧导航样式随定位发生变化
   statusChange() {
