@@ -32,16 +32,22 @@ ElevatorNav.prototype = {
     me.floorHeight()
     me.statusChange()
     // 监听
-    $(me.scrollContent || window).scroll(function() {
+    $(me.scrollContent || window).scroll(function () {
       me.statusChange()
     })
     me.BackToTop()
     me.ShowNav()
     me.DivFun()
   },
-  floorHeight() {
 
+  // 获取各个楼层的高度
+  floorHeight() {
+    var me = this
+    for (let i = 0; i < me.config.floorClass.length; i++) {
+      me.config.floor[i] = $('.' + me.config.floorClass[i]).offset().top
+    }
   },
+  // 左侧导航样式随定位发生变化
   statusChange() {
 
   },
