@@ -130,3 +130,16 @@ ElevatorNav.prototype = {
     }
   },
 }
+
+// 支持多种模块化方式
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+  module.exports = ElevatorNav;
+} else {
+  if (typeof define === 'function' && define.amd) {
+    define([], function () {
+      return ElevatorNav;
+    });
+  } else {
+    window.ElevatorNav = ElevatorNav;
+  }
+}
