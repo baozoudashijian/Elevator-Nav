@@ -66,8 +66,12 @@ ElevatorNav.prototype = {
       }
     }
   },
+  // 回到底部
   BackToTop() {
-
+    var me = this;
+    $('.' + me.config.topTopClass).on('click', function () {
+      $(me.config.scrollContent || 'html, body').animate({scrollTop: 0}, me.config.speed)
+    })
   },
   ShowNav() {
 
