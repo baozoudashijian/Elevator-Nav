@@ -49,7 +49,22 @@ ElevatorNav.prototype = {
   },
   // 左侧导航样式随定位发生变化
   statusChange() {
-
+    var me = this
+    var windowScrollTop = $(me.scrollContent || window).scrollTop();
+    for (var j = 0; j < me.config.floor.length; j++) {
+      if (windowScrollTop >= me.config.floor[j] - (me.config.offset + 10)) {
+        // 如果有多个相同导航
+        if (me.NavDiv && me.NavDiv.length > 1) {
+          for (var k = 0; k < me.NavDiv.length; k++) {
+            $(me.NavDiv[k]).find(me.NavLi).removeClass(me.config.activeClass)
+            $(me.NavDiv[k]).find(me.NavLi).eq(j).addClass(me.config.activeClass)
+          }
+        } else {
+          me.NavLi.removeClass(me.config.activeClass)
+          me.NavLi.eq(j).addClass(me.config.activeClass)
+        }
+      }
+    }
   },
   BackToTop() {
 
