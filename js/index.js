@@ -84,7 +84,7 @@ ElevatorNav.prototype = {
         me.NavDiv.hide()
       }
       // 监听
-      $(window).scroll(function() {
+      $(window).scroll(function () {
         if ($(window).scrollTop() >= f1Top) {
           me.NavDiv.show()
         } else {
@@ -93,7 +93,11 @@ ElevatorNav.prototype = {
       })
     }
   },
+  // 自定义方法
   DivFun() {
-
+    var me = this;
+    if (typeof me.config.DiyFun != 'undefined' && typeof me.config.DiyFun != 'function') {
+      me.config.DiyFun();
+    }
   },
 }
