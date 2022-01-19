@@ -1,4 +1,6 @@
-config/site.php
-files/cache/*
-files/tmp/*
-.htaccess
+/node_modules
+/dist
+/.cache
+/.vscode
+/.idea
+yarn-error.log
