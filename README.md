@@ -1,5 +1,5 @@
 # 电梯导航组件
-demo效果预览：[https://zhouxingzu.github.io/elevator-nav/](https://zhouxingzu.github.io/elevator-nav/)
+demo效果预览：[https://baozoudashijian.github.io/Elevator-Nav/](https://baozoudashijian.github.io/Elevator-Nav/)
 
 #### 一、使用方法：
 ```
